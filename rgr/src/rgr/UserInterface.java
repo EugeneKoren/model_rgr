@@ -30,7 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 
-public class Model {
+public class UserInterface {
 
 	private JFrame frame;
 	private JPanel panl_test;
@@ -74,7 +74,7 @@ public class Model {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Model window = new Model();
+					UserInterface window = new UserInterface();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -86,7 +86,7 @@ public class Model {
 	/**
 	 * Create the application.
 	 */
-	public Model() {
+	public UserInterface() {
 		initialize();
 	}
 
