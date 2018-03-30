@@ -1,10 +1,14 @@
 package rgr;
 
+import process.QueueForTransactions;
+import rnd.Randomable;
+import stat.Histo;
+
 public class BargeGenerator extends Actor {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("222");
-	}
-
+	private double finishTime;
+	private Histo histoBarg;
+	private QueueForTransactions<Barge> QueueToRozvan;
+	private Randomable rnd;
+	
+	
 }

@@ -20,6 +20,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import widgets.Diagram;
 import javax.swing.JTextPane;
+
+import process.Dispatcher;
+import process.IModelFactory;
+
 import javax.swing.JCheckBox;
 import widgets.stat.StatisticsManager;
 import java.awt.CardLayout;
@@ -36,17 +40,17 @@ public class UserInterface {
 	private JPanel panl_test;
 	private JPanel panel_tz;
 	private JPanel panel_2;
-	private ChooseRandom chooseRandom;
-	private ChooseRandom chooseRandom_1;
-	private ChooseRandom chooseRandom_2;
-	private ChooseData chooseData;
-	private ChooseData chooseData_1;
-	private ChooseData chooseData_2;
+	private ChooseRandom chooseRandomPoivaBar;
+	private ChooseRandom chooseRandomChasPerebAvtoInRoad;
+	private ChooseRandom chooseRandomChasZavAvto;
+	private ChooseData chooseKilkistKonteiner;
+	private ChooseData chooseKilkistBrig;
+	private ChooseData chooseSizePlo;
 	private JPanel Start;
 	private JScrollPane scrollPane_1;
-	private Diagram diagram;
-	private Diagram diagram_1;
-	private Diagram diagram_2;
+	private Diagram diagramBarg;
+	private Diagram diagramAvto;
+	private Diagram diagramPlo;
 	private JButton btnNewButton_1;
 	private JTextPane textPane;
 	private JCheckBox chckbxNewCheckBox;
@@ -54,8 +58,8 @@ public class UserInterface {
 	private JPanel panel_1;
 	private JPanel panel_3;
 	private TransProcessManager transProcessManager;
-	private ChooseData chooseData_3;
-	private ChooseData chooseData_4;
+	private ChooseData chooseKilkistAvto;
+	private ChooseData chooseMistcistAvto;
 	private ChooseData chooseData_5;
 	private JPanel panel;
 	private Diagram diagram_3;
@@ -119,85 +123,85 @@ public class UserInterface {
 		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
-		chooseRandom = new ChooseRandom();
-		chooseRandom.setTitle("\u0418\u043D\u0442\u0435\u0440\u0432\u0430\u043B \u0447\u0430\u0441\u0443 \u043C\u0456\u0436 \u043F\u043E\u044F\u0432\u0430\u043C\u0438 \u0431\u0430\u0440\u0436");
-		GridBagConstraints gbc_chooseRandom = new GridBagConstraints();
-		gbc_chooseRandom.anchor = GridBagConstraints.NORTH;
-		gbc_chooseRandom.fill = GridBagConstraints.HORIZONTAL;
-		gbc_chooseRandom.insets = new Insets(0, 0, 5, 0);
-		gbc_chooseRandom.gridx = 0;
-		gbc_chooseRandom.gridy = 0;
-		panel_2.add(chooseRandom, gbc_chooseRandom);
+		chooseRandomPoivaBar = new ChooseRandom();
+		chooseRandomPoivaBar.setTitle("\u0418\u043D\u0442\u0435\u0440\u0432\u0430\u043B \u0447\u0430\u0441\u0443 \u043C\u0456\u0436 \u043F\u043E\u044F\u0432\u0430\u043C\u0438 \u0431\u0430\u0440\u0436");
+		GridBagConstraints gbc_chooseRandomPoivaBar = new GridBagConstraints();
+		gbc_chooseRandomPoivaBar.anchor = GridBagConstraints.NORTH;
+		gbc_chooseRandomPoivaBar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chooseRandomPoivaBar.insets = new Insets(0, 0, 5, 0);
+		gbc_chooseRandomPoivaBar.gridx = 0;
+		gbc_chooseRandomPoivaBar.gridy = 0;
+		panel_2.add(chooseRandomPoivaBar, gbc_chooseRandomPoivaBar);
 		
-		chooseRandom_1 = new ChooseRandom();
-		chooseRandom_1.setTitle("\u0427\u0430\u0441 \u043F\u0435\u0440\u0435\u0431\u0443\u0432\u0430\u043D\u043D\u044F \u0430\u0432\u0442\u043E \u0432 \u0434\u043E\u0440\u043E\u0437\u0456");
-		GridBagConstraints gbc_chooseRandom_1 = new GridBagConstraints();
-		gbc_chooseRandom_1.anchor = GridBagConstraints.NORTH;
-		gbc_chooseRandom_1.insets = new Insets(0, 0, 5, 0);
-		gbc_chooseRandom_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_chooseRandom_1.gridx = 0;
-		gbc_chooseRandom_1.gridy = 1;
-		panel_2.add(chooseRandom_1, gbc_chooseRandom_1);
+		chooseRandomChasPerebAvtoInRoad = new ChooseRandom();
+		chooseRandomChasPerebAvtoInRoad.setTitle("\u0427\u0430\u0441 \u043F\u0435\u0440\u0435\u0431\u0443\u0432\u0430\u043D\u043D\u044F \u0430\u0432\u0442\u043E \u0432 \u0434\u043E\u0440\u043E\u0437\u0456");
+		GridBagConstraints gbc_chooseRandomChasPerebAvtoInRoad = new GridBagConstraints();
+		gbc_chooseRandomChasPerebAvtoInRoad.anchor = GridBagConstraints.NORTH;
+		gbc_chooseRandomChasPerebAvtoInRoad.insets = new Insets(0, 0, 5, 0);
+		gbc_chooseRandomChasPerebAvtoInRoad.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chooseRandomChasPerebAvtoInRoad.gridx = 0;
+		gbc_chooseRandomChasPerebAvtoInRoad.gridy = 1;
+		panel_2.add(chooseRandomChasPerebAvtoInRoad, gbc_chooseRandomChasPerebAvtoInRoad);
 		
-		chooseRandom_2 = new ChooseRandom();
-		chooseRandom_2.setTitle("\u0427\u0430\u0441 \u043D\u0430 \u0437\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0435\u043D\u043D\u044F \u0430\u0432\u0442\u043E");
-		GridBagConstraints gbc_chooseRandom_2 = new GridBagConstraints();
-		gbc_chooseRandom_2.anchor = GridBagConstraints.NORTH;
-		gbc_chooseRandom_2.insets = new Insets(0, 0, 5, 0);
-		gbc_chooseRandom_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_chooseRandom_2.gridx = 0;
-		gbc_chooseRandom_2.gridy = 2;
-		panel_2.add(chooseRandom_2, gbc_chooseRandom_2);
+		chooseRandomChasZavAvto = new ChooseRandom();
+		chooseRandomChasZavAvto.setTitle("\u0427\u0430\u0441 \u043D\u0430 \u0437\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0435\u043D\u043D\u044F \u0430\u0432\u0442\u043E");
+		GridBagConstraints gbc_chooseRandomChasZavAvto = new GridBagConstraints();
+		gbc_chooseRandomChasZavAvto.anchor = GridBagConstraints.NORTH;
+		gbc_chooseRandomChasZavAvto.insets = new Insets(0, 0, 5, 0);
+		gbc_chooseRandomChasZavAvto.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chooseRandomChasZavAvto.gridx = 0;
+		gbc_chooseRandomChasZavAvto.gridy = 2;
+		panel_2.add(chooseRandomChasZavAvto, gbc_chooseRandomChasZavAvto);
 		
-		chooseData = new ChooseData();
-		chooseData.setTitle("\u041A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u043A\u043E\u043D\u0442\u0435\u0439\u043D\u0435\u0440\u0456\u0432 \u0432 \u0431\u0430\u0440\u0436\u0456");
-		GridBagConstraints gbc_chooseData = new GridBagConstraints();
-		gbc_chooseData.anchor = GridBagConstraints.NORTH;
-		gbc_chooseData.insets = new Insets(0, 0, 5, 0);
-		gbc_chooseData.fill = GridBagConstraints.HORIZONTAL;
-		gbc_chooseData.gridx = 0;
-		gbc_chooseData.gridy = 3;
-		panel_2.add(chooseData, gbc_chooseData);
+		chooseKilkistKonteiner = new ChooseData();
+		chooseKilkistKonteiner.setTitle("\u041A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u043A\u043E\u043D\u0442\u0435\u0439\u043D\u0435\u0440\u0456\u0432 \u0432 \u0431\u0430\u0440\u0436\u0456");
+		GridBagConstraints gbc_chooseKilkistKonteiner = new GridBagConstraints();
+		gbc_chooseKilkistKonteiner.anchor = GridBagConstraints.NORTH;
+		gbc_chooseKilkistKonteiner.insets = new Insets(0, 0, 5, 0);
+		gbc_chooseKilkistKonteiner.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chooseKilkistKonteiner.gridx = 0;
+		gbc_chooseKilkistKonteiner.gridy = 3;
+		panel_2.add(chooseKilkistKonteiner, gbc_chooseKilkistKonteiner);
 		
-		chooseData_1 = new ChooseData();
-		chooseData_1.setTitle("\u041A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0431\u0440\u0438\u043D\u0430\u0434");
-		GridBagConstraints gbc_chooseData_1 = new GridBagConstraints();
-		gbc_chooseData_1.anchor = GridBagConstraints.NORTH;
-		gbc_chooseData_1.insets = new Insets(0, 0, 5, 0);
-		gbc_chooseData_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_chooseData_1.gridx = 0;
-		gbc_chooseData_1.gridy = 4;
-		panel_2.add(chooseData_1, gbc_chooseData_1);
+		chooseKilkistBrig = new ChooseData();
+		chooseKilkistBrig.setTitle("\u041A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0431\u0440\u0438\u043D\u0430\u0434");
+		GridBagConstraints gbc_chooseKilkistBrig = new GridBagConstraints();
+		gbc_chooseKilkistBrig.anchor = GridBagConstraints.NORTH;
+		gbc_chooseKilkistBrig.insets = new Insets(0, 0, 5, 0);
+		gbc_chooseKilkistBrig.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chooseKilkistBrig.gridx = 0;
+		gbc_chooseKilkistBrig.gridy = 4;
+		panel_2.add(chooseKilkistBrig, gbc_chooseKilkistBrig);
 		
-		chooseData_2 = new ChooseData();
-		chooseData_2.setTitle("\u0420\u043E\u0437\u043C\u0456\u0440 \u043F\u043B\u043E\u0449\u0430\u0434\u043A\u0438");
-		GridBagConstraints gbc_chooseData_2 = new GridBagConstraints();
-		gbc_chooseData_2.insets = new Insets(0, 0, 5, 0);
-		gbc_chooseData_2.anchor = GridBagConstraints.NORTH;
-		gbc_chooseData_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_chooseData_2.gridx = 0;
-		gbc_chooseData_2.gridy = 5;
-		panel_2.add(chooseData_2, gbc_chooseData_2);
+		chooseSizePlo = new ChooseData();
+		chooseSizePlo.setTitle("\u0420\u043E\u0437\u043C\u0456\u0440 \u043F\u043B\u043E\u0449\u0430\u0434\u043A\u0438");
+		GridBagConstraints gbc_chooseSizePlo = new GridBagConstraints();
+		gbc_chooseSizePlo.insets = new Insets(0, 0, 5, 0);
+		gbc_chooseSizePlo.anchor = GridBagConstraints.NORTH;
+		gbc_chooseSizePlo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chooseSizePlo.gridx = 0;
+		gbc_chooseSizePlo.gridy = 5;
+		panel_2.add(chooseSizePlo, gbc_chooseSizePlo);
 		
-		chooseData_3 = new ChooseData();
-		chooseData_3.setTitle("\u041A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0430\u0432\u0442\u043E");
-		GridBagConstraints gbc_chooseData_3 = new GridBagConstraints();
-		gbc_chooseData_3.insets = new Insets(0, 0, 5, 0);
-		gbc_chooseData_3.anchor = GridBagConstraints.NORTH;
-		gbc_chooseData_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_chooseData_3.gridx = 0;
-		gbc_chooseData_3.gridy = 6;
-		panel_2.add(chooseData_3, gbc_chooseData_3);
+		chooseKilkistAvto = new ChooseData();
+		chooseKilkistAvto.setTitle("\u041A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0430\u0432\u0442\u043E");
+		GridBagConstraints gbc_chooseKilkistAvto = new GridBagConstraints();
+		gbc_chooseKilkistAvto.insets = new Insets(0, 0, 5, 0);
+		gbc_chooseKilkistAvto.anchor = GridBagConstraints.NORTH;
+		gbc_chooseKilkistAvto.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chooseKilkistAvto.gridx = 0;
+		gbc_chooseKilkistAvto.gridy = 6;
+		panel_2.add(chooseKilkistAvto, gbc_chooseKilkistAvto);
 		
-		chooseData_4 = new ChooseData();
-		chooseData_4.setTitle("\u041C\u0456\u0441\u0442\u043A\u0456\u0441\u0442\u044C \u0430\u0432\u0442\u043E");
-		GridBagConstraints gbc_chooseData_4 = new GridBagConstraints();
-		gbc_chooseData_4.anchor = GridBagConstraints.NORTH;
-		gbc_chooseData_4.insets = new Insets(0, 0, 5, 0);
-		gbc_chooseData_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_chooseData_4.gridx = 0;
-		gbc_chooseData_4.gridy = 7;
-		panel_2.add(chooseData_4, gbc_chooseData_4);
+		chooseMistcistAvto = new ChooseData();
+		chooseMistcistAvto.setTitle("\u041C\u0456\u0441\u0442\u043A\u0456\u0441\u0442\u044C \u0430\u0432\u0442\u043E");
+		GridBagConstraints gbc_chooseMistcistAvto = new GridBagConstraints();
+		gbc_chooseMistcistAvto.anchor = GridBagConstraints.NORTH;
+		gbc_chooseMistcistAvto.insets = new Insets(0, 0, 5, 0);
+		gbc_chooseMistcistAvto.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chooseMistcistAvto.gridx = 0;
+		gbc_chooseMistcistAvto.gridy = 7;
+		panel_2.add(chooseMistcistAvto, gbc_chooseMistcistAvto);
 		
 		chooseData_5 = new ChooseData();
 		chooseData_5.setTitle("\u0427\u0430\u0441 \u043C\u043E\u0434\u0435\u043B\u044E\u0432\u0430\u043D\u043D\u044F");
@@ -237,32 +241,35 @@ public class UserInterface {
 		gbl_panl_test.rowWeights = new double[]{1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		panl_test.setLayout(gbl_panl_test);
 		
-		diagram = new Diagram();
-		GridBagConstraints gbc_diagram = new GridBagConstraints();
-		gbc_diagram.gridwidth = 2;
-		gbc_diagram.insets = new Insets(0, 0, 5, 0);
-		gbc_diagram.fill = GridBagConstraints.BOTH;
-		gbc_diagram.gridx = 0;
-		gbc_diagram.gridy = 0;
-		panl_test.add(diagram, gbc_diagram);
+		diagramBarg = new Diagram();
+		diagramBarg.setTitleText("\u0427\u0435\u0440\u0433\u0430 \u0431\u0430\u0440\u0436");
+		GridBagConstraints gbc_diagramBarg = new GridBagConstraints();
+		gbc_diagramBarg.gridwidth = 2;
+		gbc_diagramBarg.insets = new Insets(0, 0, 5, 0);
+		gbc_diagramBarg.fill = GridBagConstraints.BOTH;
+		gbc_diagramBarg.gridx = 0;
+		gbc_diagramBarg.gridy = 0;
+		panl_test.add(diagramBarg, gbc_diagramBarg);
 		
-		diagram_1 = new Diagram();
-		GridBagConstraints gbc_diagram_1 = new GridBagConstraints();
-		gbc_diagram_1.gridwidth = 2;
-		gbc_diagram_1.insets = new Insets(0, 0, 5, 0);
-		gbc_diagram_1.fill = GridBagConstraints.BOTH;
-		gbc_diagram_1.gridx = 0;
-		gbc_diagram_1.gridy = 1;
-		panl_test.add(diagram_1, gbc_diagram_1);
+		diagramAvto = new Diagram();
+		diagramAvto.setTitleText("\u0427\u0435\u0440\u0433\u0430 \u0430\u0432\u0442\u043E\u043C\u043E\u0431\u0438\u043B\u0438\u0432");
+		GridBagConstraints gbc_diagramAvto = new GridBagConstraints();
+		gbc_diagramAvto.gridwidth = 2;
+		gbc_diagramAvto.insets = new Insets(0, 0, 5, 0);
+		gbc_diagramAvto.fill = GridBagConstraints.BOTH;
+		gbc_diagramAvto.gridx = 0;
+		gbc_diagramAvto.gridy = 1;
+		panl_test.add(diagramAvto, gbc_diagramAvto);
 		
-		diagram_2 = new Diagram();
-		GridBagConstraints gbc_diagram_2 = new GridBagConstraints();
-		gbc_diagram_2.gridwidth = 2;
-		gbc_diagram_2.insets = new Insets(0, 0, 5, 0);
-		gbc_diagram_2.fill = GridBagConstraints.BOTH;
-		gbc_diagram_2.gridx = 0;
-		gbc_diagram_2.gridy = 2;
-		panl_test.add(diagram_2, gbc_diagram_2);
+		diagramPlo = new Diagram();
+		diagramPlo.setTitleText("\u0417\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0435\u043D\u0438\u0441\u0442\u044C \u043F\u043B\u043E\u0449\u0430\u0434\u043A\u0438");
+		GridBagConstraints gbc_diagramPlo = new GridBagConstraints();
+		gbc_diagramPlo.gridwidth = 2;
+		gbc_diagramPlo.insets = new Insets(0, 0, 5, 0);
+		gbc_diagramPlo.fill = GridBagConstraints.BOTH;
+		gbc_diagramPlo.gridx = 0;
+		gbc_diagramPlo.gridy = 2;
+		panl_test.add(diagramPlo, gbc_diagramPlo);
 		
 		chckbxNewCheckBox = new JCheckBox("\u041F\u0440\u043E\u0442\u043E\u043A\u043E\u043B \u043D\u0430 \u043A\u043E\u043D\u0441\u043E\u043B\u044C");
 		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
@@ -272,6 +279,14 @@ public class UserInterface {
 		panl_test.add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
 		
 		btnNewButton_1 = new JButton("\u0421\u0442\u0430\u0440\u0442");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				StartTest();
+			
+			
+			}
+		});
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.anchor = GridBagConstraints.EAST;
 		gbc_btnNewButton_1.gridx = 1;
@@ -384,4 +399,65 @@ public class UserInterface {
 	}
 
 
+	public ChooseData getChooseData_5() {
+		return chooseData_5;
+	}
+	public ChooseData getChooseMistcistAvto() {
+		return chooseMistcistAvto;
+	}
+	public ChooseData getChooseSizePlo() {
+		return chooseSizePlo;
+	}
+	public ChooseData getChooseKilkistAvto() {
+		return chooseKilkistAvto;
+	}
+	public ChooseData getChooseKilkistBrig() {
+		return chooseKilkistBrig;
+	}
+	public ChooseData getChooseKilkistKonteiner() {
+		return chooseKilkistKonteiner;
+	}
+	public ChooseRandom getChooseRandomChasZavAvto() {
+		return chooseRandomChasZavAvto;
+	}
+	public ChooseRandom getChooseRandomChasPerebAvtoInRoad() {
+		return chooseRandomChasPerebAvtoInRoad;
+	}
+	public ChooseRandom getChooseRandomPoivaBar() {
+		return chooseRandomPoivaBar;
+	}
+	public JButton getBtnNewButton_1() {
+		return btnNewButton_1;
+	}
+
+	public Diagram getDiagramPlo() {
+		return diagramPlo;
+	}
+	public Diagram getDiagramAvto() {
+		return diagramAvto;
+	}
+	public Diagram getDiagramBarg() {
+		return diagramBarg;
+	}
+	private void StartTest() {
+			//Готуємо діаграму для виведення графіку
+					getDiagramAvto().clear();
+					getDiagramPlo().clear();
+					getDiagramBarg().clear();
+				//Створюємо диспетчера
+				Dispatcher dispatcher = new Dispatcher();	
+				//Створюємо модель за допомогою фабрики
+				IModelFactory factory = (d)-> new Model(d, this);
+				Model model =(Model) factory.createModel(dispatcher);
+				// Робимо кнопку «Старт» недосяжною на період роботи моделі
+				getBtnNewButton_1().setEnabled(false);
+				dispatcher.addDispatcherFinishListener(
+						()->getBtnNewButton_1().setEnabled(true));
+				//Готуємо модель до роботи у режимі тестування
+				model.initForTest();
+				//Запускаємо модель
+				dispatcher.start();
+
+		
+	}
 }
