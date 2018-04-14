@@ -21,7 +21,7 @@ public class BargeGenerator extends Actor {
 		this.interf = interf;
 		setNameForProtocol(name);
 		finishTime = interf.getChooseChasMod().getDouble();
-		
+		rnd = interf.getChooseRandomPoivaBar();
 	}
 	
 	
@@ -31,8 +31,8 @@ public class BargeGenerator extends Actor {
 			holdForTime(rnd.next());
 			getDispatcher().printToProtocol(
 					"  " + getNameForProtocol() + " створює транзакцію.");
-			//Transaction transaction = new Transaction(model);
-			//dispatcher.addStartingActor(transaction);
+			Barge transaction = new Barge(model);
+			dispatcher.addStartingActor(transaction);
 		}
 	}
 

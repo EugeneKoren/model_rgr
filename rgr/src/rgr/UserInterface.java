@@ -70,6 +70,7 @@ public class UserInterface {
 	private JButton btnNewButton_2;
 	private JCheckBox chckbxNewCheckBox_1;
 	private JTextField textField;
+	private ChooseData chooseData;
 
 	/**
 	 * Launch the application.
@@ -118,9 +119,9 @@ public class UserInterface {
 		frame.getContentPane().add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
 		gbl_panel_2.columnWidths = new int[]{300, 0};
-		gbl_panel_2.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_2.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel_2.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
 		chooseRandomPoivaBar = new ChooseRandom();
@@ -206,11 +207,19 @@ public class UserInterface {
 		chooseChasMod = new ChooseData();
 		chooseChasMod.setTitle("\u0427\u0430\u0441 \u043C\u043E\u0434\u0435\u043B\u044E\u0432\u0430\u043D\u043D\u044F");
 		GridBagConstraints gbc_chooseChasMod = new GridBagConstraints();
+		gbc_chooseChasMod.insets = new Insets(0, 0, 5, 0);
 		gbc_chooseChasMod.anchor = GridBagConstraints.NORTH;
 		gbc_chooseChasMod.fill = GridBagConstraints.HORIZONTAL;
 		gbc_chooseChasMod.gridx = 0;
 		gbc_chooseChasMod.gridy = 8;
 		panel_2.add(chooseChasMod, gbc_chooseChasMod);
+		
+		chooseData = new ChooseData();
+		GridBagConstraints gbc_chooseData = new GridBagConstraints();
+		gbc_chooseData.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chooseData.gridx = 0;
+		gbc_chooseData.gridy = 9;
+		panel_2.add(chooseData, gbc_chooseData);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
@@ -440,6 +449,12 @@ public class UserInterface {
 		return diagramBarg;
 	}
 	private void StartTest() {
+				getDiagramBarg().setHorizontalMaxText(
+						getChooseChasMod().getText());
+			// Штучно формуємо подію CaretUpdate,
+			// щоб обновити налаштування діаграми
+			//getChooseDataFinishTime().select(0,0);
+
 			//Готуємо діаграму для виведення графіку
 					getDiagramAvto().clear();
 					getDiagramPlo().clear();
@@ -462,4 +477,7 @@ public class UserInterface {
 	}
 
 
+	public JCheckBox getChckbxNewCheckBox() {
+		return chckbxNewCheckBox;
+	}
 }
