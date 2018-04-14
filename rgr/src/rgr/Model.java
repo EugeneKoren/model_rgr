@@ -31,7 +31,7 @@ public class Model {
 		}
 		dispatcher = d;
 		interfase = g;
-		//Передаємо акторів до стартового списку диспетчера
+		//Передаємо акторів до стартового списку диспетчераы
 		componentsToStartList();
 	}
 	public void componentsToStartList() {

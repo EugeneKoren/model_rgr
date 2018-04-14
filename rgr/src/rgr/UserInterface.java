@@ -60,7 +60,7 @@ public class UserInterface {
 	private TransProcessManager transProcessManager;
 	private ChooseData chooseKilkistAvto;
 	private ChooseData chooseMistcistAvto;
-	private ChooseData chooseData_5;
+	private ChooseData chooseChasMod;
 	private JPanel panel;
 	private Diagram diagram_3;
 	private RegresAnaliser regresAnaliser;
@@ -203,14 +203,14 @@ public class UserInterface {
 		gbc_chooseMistcistAvto.gridy = 7;
 		panel_2.add(chooseMistcistAvto, gbc_chooseMistcistAvto);
 		
-		chooseData_5 = new ChooseData();
-		chooseData_5.setTitle("\u0427\u0430\u0441 \u043C\u043E\u0434\u0435\u043B\u044E\u0432\u0430\u043D\u043D\u044F");
-		GridBagConstraints gbc_chooseData_5 = new GridBagConstraints();
-		gbc_chooseData_5.anchor = GridBagConstraints.NORTH;
-		gbc_chooseData_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_chooseData_5.gridx = 0;
-		gbc_chooseData_5.gridy = 8;
-		panel_2.add(chooseData_5, gbc_chooseData_5);
+		chooseChasMod = new ChooseData();
+		chooseChasMod.setTitle("\u0427\u0430\u0441 \u043C\u043E\u0434\u0435\u043B\u044E\u0432\u0430\u043D\u043D\u044F");
+		GridBagConstraints gbc_chooseChasMod = new GridBagConstraints();
+		gbc_chooseChasMod.anchor = GridBagConstraints.NORTH;
+		gbc_chooseChasMod.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chooseChasMod.gridx = 0;
+		gbc_chooseChasMod.gridy = 8;
+		panel_2.add(chooseChasMod, gbc_chooseChasMod);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
@@ -399,8 +399,8 @@ public class UserInterface {
 	}
 
 
-	public ChooseData getChooseData_5() {
-		return chooseData_5;
+	public ChooseData getChooseChasMod() {
+		return chooseChasMod;
 	}
 	public ChooseData getChooseMistcistAvto() {
 		return chooseMistcistAvto;
@@ -460,4 +460,6 @@ public class UserInterface {
 
 		
 	}
+
+
 }
