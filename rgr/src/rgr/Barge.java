@@ -82,7 +82,7 @@ public class Barge extends process.Actor {
 		nameForProtocol = "barge "+createTime;
 		queue.add(this);
 		waitForCondition(()->!queue.contains(this), "мають забрати на обслуговування");
-		histoQueue.add(dispatcher.getCurrentTime() - createTime);
+		//histoQueue.add(dispatcher.getCurrentTime() - createTime);
 		waitForCondition(()->serviceDone, "мають завершити обслуговування");
 		histoService.add(dispatcher.getCurrentTime()-createTime);
 		

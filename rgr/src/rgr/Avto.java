@@ -5,6 +5,7 @@ import java.util.function.BooleanSupplier;
 import process.Actor;
 import process.DispatcherFinishException;
 import process.QueueForTransactions;
+import process.Store;
 import rnd.Randomable;
 import stat.Histo;
 
@@ -18,7 +19,8 @@ public class Avto extends Actor {
 	private QueueForTransactions<Avto> queueToRoad;
 	private BooleanSupplier isBodyFull;
 	private Histo avtoHisto;
-
+	private Store areagruz;
+	private int maxsize;
 	
 	public Avto(String string, UserInterface gui, Model model) {
 		finishTime = gui.getChooseChasMod().getDouble();
@@ -28,6 +30,8 @@ public class Avto extends Actor {
 		queueToRoad = model.getQueueToRoad();
 		load_container = 0;
 		avtoHisto = model.getHistoAvto();
+		areagruz = model.getAreagruz();
+		maxsize= gui.getChooseSizePlo().getInt();
 	}
 
 
@@ -40,13 +44,22 @@ public class Avto extends Actor {
 		initCondition();
 		while(getDispatcher().getCurrentTime()<=finishTime){
 			getDispatcher().printToProtocol("Авто відправляється до порту");
-			queueToZavantagAvto.addLast(this);
-			try {
-				waitForCondition(isBodyFull, " машина має бути заповнена");
-			} catch (DispatcherFinishException e) {
-				return;
+			while(areagruz.getSize()> 0&& !this.isFull()) {
+				this.addContainer();
+				areagruz.remove(1);
 			}
-			queueToZavantagAvto.removeFirst();
+			if(!this.isFull()) {
+				queueToZavantagAvto.addLast(this);	
+				try {
+					waitForCondition(isBodyFull, " машина має бути заповнена");
+				} catch (DispatcherFinishException e) {
+					return;
+				}
+				queueToZavantagAvto.removeFirst();
+				
+			}
+			
+			
 			holdForTime(rnd.next());
 			load_container=0;
 			

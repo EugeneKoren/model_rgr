@@ -3,6 +3,7 @@ package rgr;
 import process.Dispatcher;
 import process.MultiActor;
 import process.QueueForTransactions;
+import process.Store;
 import qusystem.GetPutDevice;
 import stat.DiscretHisto;
 import stat.Histo;
@@ -14,6 +15,8 @@ public class Model {
 	private QueueForTransactions<Avto> queueToZavantagAvto;// черга на завантаження авто 
 
 	private QueueForTransactions<Avto> queueToRoad;// чергаавто в дорозі
+	private Store areagruz;
+	private Histo histoarea;
 
 	private DiscretHisto histoForQueueToRozvantag;
 	private DiscretHisto histoForQueueToZavantagAvto;
@@ -110,6 +113,7 @@ public class Model {
 		return Avtos;
 	}
 	public void initForTest() {
+		getAreagruz().setPainter(interfase.getDiagramPlo().getPainter());
 		getQueueToRozvantag().setPainter(interfase.getDiagramBarg().getPainter());
 		getQueueToZavantagAvto().setPainter(interfase.getDiagramAvto().getPainter());
 		if(interfase.getChckbxNewCheckBox().isSelected()) {
@@ -142,5 +146,17 @@ public class Model {
 	}
 	public Histo getHistoAvto() {
 		return histoAvto;
+	}
+	public Store getAreagruz() {
+		if (areagruz == null) {
+			areagruz = new Store("Площадка для контейнерів", dispatcher, getHistoarea());
+		}
+		return areagruz;
+	}
+	public Histo getHistoarea() {
+		if(histoarea==null) {
+			histoarea= new Histo();
+		}
+		return histoarea;
 	}
 }

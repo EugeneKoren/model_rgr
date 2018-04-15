@@ -10,7 +10,7 @@ public class Area extends Actor	 {
 	private DiscretHisto discretHisto2;
 	@Override
 	protected void rule() throws DispatcherFinishException {
-		// TODO Auto-generated method stub
+		
 		
 	} 
 }
