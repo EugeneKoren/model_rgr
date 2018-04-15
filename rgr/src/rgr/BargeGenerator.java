@@ -35,7 +35,6 @@ public class BargeGenerator extends Actor {
 			dispatcher.addStartingActor(transaction);
 		}
 	}
-
 	}
 	
 	

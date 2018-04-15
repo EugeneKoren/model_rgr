@@ -10,8 +10,10 @@ public class Model {
 	private Avto avto;
 	private Workers workers;
 	private QueueForTransactions<Barge> queueToRozvantag;
-	private QueueForTransactions<Avto> queueToZavantagAvto;
-	private QueueForTransactions<Avto> queueToRoad;
+	private QueueForTransactions<Avto> queueToZavantagAvto;// черга на завантаження авто 
+
+	private QueueForTransactions<Avto> queueToRoad;// чергаавто в дорозі
+
 	private DiscretHisto histoForQueueToRozvantag;
 	private DiscretHisto histoForQueueToZavantagAvto;
 	private Histo histoBargeInQue;//длявремени в черзи 
@@ -23,7 +25,8 @@ public class Model {
 		return histoServirsBarg;
 	}
 	private Histo histoWorker;//для часу чекання  
-	private Histo histoAvto;
+	private Histo histoAvto;//для часу авто
+
 	private Histo histoArea;
 	protected MultiActor brigadOfWorkers;
 	private Dispatcher dispatcher;
@@ -33,7 +36,9 @@ public class Model {
 	public static void main(String[] args) {
 		System.out.println("sad");
 	}
-	
+	public QueueForTransactions<Avto> getQueueToZavantagAvto() {
+		return queueToZavantagAvto;
+	}
 	
 	public Model(Dispatcher d, UserInterface g) {
 		if (d == null || g == null) {
@@ -97,5 +102,10 @@ public class Model {
 		return histoWorker;
 	}
 	
-
+	public QueueForTransactions<Avto> getQueueToRoad() {
+		return queueToRoad;
+	}
+	public Histo getHistoAvto() {
+		return histoAvto;
+	}
 }

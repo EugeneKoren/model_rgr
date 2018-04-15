@@ -32,6 +32,7 @@ import widgets.regres.RegresAnaliser;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import java.awt.Color;
 
 
 public class UserInterface {
@@ -251,6 +252,7 @@ public class UserInterface {
 		panl_test.setLayout(gbl_panl_test);
 		
 		diagramBarg = new Diagram();
+		diagramBarg.setPainterColor(Color.RED);
 		diagramBarg.setTitleText("\u0427\u0435\u0440\u0433\u0430 \u0431\u0430\u0440\u0436");
 		GridBagConstraints gbc_diagramBarg = new GridBagConstraints();
 		gbc_diagramBarg.gridwidth = 2;
@@ -271,6 +273,7 @@ public class UserInterface {
 		panl_test.add(diagramAvto, gbc_diagramAvto);
 		
 		diagramPlo = new Diagram();
+		diagramPlo.setPainterColor(Color.RED);
 		diagramPlo.setTitleText("\u0417\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0435\u043D\u0438\u0441\u0442\u044C \u043F\u043B\u043E\u0449\u0430\u0434\u043A\u0438");
 		GridBagConstraints gbc_diagramPlo = new GridBagConstraints();
 		gbc_diagramPlo.gridwidth = 2;

@@ -36,7 +36,7 @@ public class Workers extends process.Actor {
 					Barge transaction = queue.removeFirst();
 					// Імітація обробки транзакції
 					holdForTime(rnd.next()*gui.getChooseKilkistKonteiner().getInt());
-					System.out.println(rnd.next()*gui.getChooseKilkistKonteiner().getInt());
+					//System.out.println(rnd.next()*gui.getChooseKilkistKonteiner().getInt());
 					transaction.setServiceDone(true);
 				}
 			}
