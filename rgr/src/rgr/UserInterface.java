@@ -263,6 +263,7 @@ public class UserInterface {
 		panl_test.add(diagramBarg, gbc_diagramBarg);
 		
 		diagramAvto = new Diagram();
+		diagramAvto.setPainterColor(Color.RED);
 		diagramAvto.setTitleText("\u0427\u0435\u0440\u0433\u0430 \u0430\u0432\u0442\u043E\u043C\u043E\u0431\u0438\u043B\u0438\u0432");
 		GridBagConstraints gbc_diagramAvto = new GridBagConstraints();
 		gbc_diagramAvto.gridwidth = 2;

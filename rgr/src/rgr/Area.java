@@ -1,9 +1,16 @@
 package rgr;
 
+import process.Actor;
+import process.DispatcherFinishException;
 import process.QueueForTransactions;
 import stat.DiscretHisto;
 
-public class Area<T> extends QueueForTransactions<T> {
+public class Area extends Actor	 {
 	private DiscretHisto discretHisto; 
-	private DiscretHisto discretHisto2; 
+	private DiscretHisto discretHisto2;
+	@Override
+	protected void rule() throws DispatcherFinishException {
+		// TODO Auto-generated method stub
+		
+	} 
 }

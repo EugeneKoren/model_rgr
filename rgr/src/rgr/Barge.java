@@ -1,5 +1,7 @@
 package rgr;
 
+import java.util.function.BooleanSupplier;
+
 import process.DispatcherFinishException;
 import process.QueueForTransactions;
 import stat.Histo;
@@ -7,11 +9,35 @@ import stat.Histo;
 public class Barge extends process.Actor {
 
 	private double createTime;
+	private int cnt_container;
+	private BooleanSupplier isEmpty;
+	private Histo histoBarg;
 	@Override
 	public String toString() {
 		return "Barge [createTime=" + createTime + "]";
 	}
 
+	public boolean haveContainer(){
+		return cnt_container>0;
+	}
+	
+	public void addContainer(){
+		cnt_container++;
+		return;
+	}
+	
+	public void getContainer(){
+		cnt_container--;
+		return;
+	}
+	
+	private void initCondition(){
+		this.isEmpty = () -> isEmpty_b();
+	}
+
+	private boolean isEmpty_b(){
+		return cnt_container<=0;
+	}
 
 
 	public boolean isServiceDone() {

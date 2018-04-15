@@ -3,6 +3,7 @@ package rgr;
 import process.Dispatcher;
 import process.MultiActor;
 import process.QueueForTransactions;
+import qusystem.GetPutDevice;
 import stat.DiscretHisto;
 import stat.Histo;
 
@@ -16,6 +17,12 @@ public class Model {
 
 	private DiscretHisto histoForQueueToRozvantag;
 	private DiscretHisto histoForQueueToZavantagAvto;
+	public DiscretHisto getHistoForQueueToZavantagAvto() {
+		if(histoForQueueToZavantagAvto==null) {
+			histoForQueueToZavantagAvto= new DiscretHisto();
+		}
+		return histoForQueueToZavantagAvto;
+	}
 	private Histo histoBargeInQue;//длявремени в черзи 
 	public Histo gethistoBargeInQue() {
 		return histoBargeInQue;
@@ -25,10 +32,12 @@ public class Model {
 		return histoServirsBarg;
 	}
 	private Histo histoWorker;//для часу чекання  
+	
 	private Histo histoAvto;//для часу авто
 
 	private Histo histoArea;
 	protected MultiActor brigadOfWorkers;
+	protected MultiActor Avtos;
 	private Dispatcher dispatcher;
 	private UserInterface interfase;
 	private BargeGenerator bargegenerator;
@@ -37,6 +46,9 @@ public class Model {
 		System.out.println("sad");
 	}
 	public QueueForTransactions<Avto> getQueueToZavantagAvto() {
+		if(queueToZavantagAvto==null) {
+			queueToZavantagAvto= new  QueueForTransactions<>("queueToZavantagAvto",dispatcher,getHistoForQueueToZavantagAvto());
+		}
 		return queueToZavantagAvto;
 	}
 	
@@ -55,6 +67,7 @@ public class Model {
 		// Передаємо акторів диспетчеру
 		dispatcher.addStartingActor(getBargegenerator());
 		dispatcher.addStartingActor(getMultiBrigadOfWorkers());
+		dispatcher.addStartingActor(getAvtos());
 	}
 	public BargeGenerator getBargegenerator() {
 		if (bargegenerator == null) {
@@ -69,6 +82,14 @@ public class Model {
 		}
 		return workers;
 	}
+	
+	public Avto getAvto() {
+		if(avto==null) {
+			avto= new Avto("avto",interfase,this);
+			avto.setHistoForActorWaitingTime(getHistoAvto());
+		}
+		return avto;
+	}
 	public MultiActor getMultiBrigadOfWorkers() {
 		if(brigadOfWorkers==null) {
 			brigadOfWorkers= new MultiActor();
@@ -78,8 +99,19 @@ public class Model {
 		}
 		return brigadOfWorkers;
 	}
+	
+	public MultiActor getAvtos() {
+		if(Avtos==null) {
+			Avtos= new MultiActor();
+			Avtos.setNameForProtocol("Avtos");
+			Avtos.setOriginal(getAvto());
+			Avtos.setNumberOfClones(interfase.getChooseKilkistAvto().getInt());
+		}
+		return Avtos;
+	}
 	public void initForTest() {
 		getQueueToRozvantag().setPainter(interfase.getDiagramBarg().getPainter());
+		getQueueToZavantagAvto().setPainter(interfase.getDiagramAvto().getPainter());
 		if(interfase.getChckbxNewCheckBox().isSelected()) {
 			dispatcher.setProtocolFileName("Console");
 		}else {
@@ -103,6 +135,9 @@ public class Model {
 	}
 	
 	public QueueForTransactions<Avto> getQueueToRoad() {
+		if(queueToRoad==null) {
+			queueToRoad = new QueueForTransactions<>("queueToRoad",dispatcher,getHistoForQueueToRozvantag());
+		}
 		return queueToRoad;
 	}
 	public Histo getHistoAvto() {

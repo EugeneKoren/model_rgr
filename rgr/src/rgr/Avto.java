@@ -1,45 +1,83 @@
 package rgr;
 
+import java.util.function.BooleanSupplier;
+
 import process.Actor;
 import process.DispatcherFinishException;
 import process.QueueForTransactions;
+import rnd.Randomable;
 import stat.Histo;
 
 public class Avto extends Actor {
 
-	private double createTime;
-	private QueueForTransactions<Avto> queue;
-	private Histo histoQueue;
-	private Histo histoService;
-	private boolean serviceDone;
-	
-	public Avto(Model model ) {
-		super();
-	}
+	private double finishTime;
+	private Randomable rnd;
+	private int cnt_container;
+	private int load_container;
+	private QueueForTransactions<Avto> queueToZavantagAvto;
+	private QueueForTransactions<Avto> queueToRoad;
+	private BooleanSupplier isBodyFull;
+	private Histo avtoHisto;
 
 	
-	public double getCreateTime() {
-		return createTime;
+	public Avto(String string, UserInterface gui, Model model) {
+		finishTime = gui.getChooseChasMod().getDouble();
+		rnd = gui.getChooseRandomChasPerebAvtoInRoad();
+		cnt_container = gui.getChooseMistcistAvto().getInt();
+		queueToZavantagAvto = model.getQueueToZavantagAvto();
+		queueToRoad = model.getQueueToRoad();
+		load_container = 0;
+		avtoHisto = model.getHistoAvto();
 	}
 
-	public void setServiceDone(boolean b) {
-		this.serviceDone = b;
-	}
 
 	
-	public String toString() {
-		return "Avto " + createTime;
+	private void initCondition(){
+		this.isBodyFull = ()->isFull();
 	}
-
-	protected void rule() throws DispatcherFinishException {
-		createTime = dispatcher.getCurrentTime();
-		nameForProtocol = "Транзакція " + createTime;
-		queue.add(this);
-		waitForCondition(() -> !queue.contains(this), "мають забрати на обслуговування");
-		histoQueue.add(dispatcher.getCurrentTime() - createTime);
-		waitForCondition(() -> serviceDone, "мають завершити обслуговування");
-		histoService.add(dispatcher.getCurrentTime() - createTime);
-
+	@Override
+	protected void rule() {
+		initCondition();
+		while(getDispatcher().getCurrentTime()<=finishTime){
+			getDispatcher().printToProtocol("Авто відправляється до порту");
+			queueToZavantagAvto.addLast(this);
+			try {
+				waitForCondition(isBodyFull, " машина має бути заповнена");
+			} catch (DispatcherFinishException e) {
+				return;
+			}
+			queueToZavantagAvto.removeFirst();
+			holdForTime(rnd.next());
+			load_container=0;
+			
+//			holdForTime(rnd.next());
+//			queueToRoad.remove(this);
+//			getDispatcher().printToProtocol("Авто прибуло до порту");
+//			queueToZavantagAvto.addLast(this);
+//			double current_time = getDispatcher().getCurrentTime();
+//			try {
+//				waitForCondition(isBodyFull, " машина має бути заповнена");
+//			} catch (DispatcherFinishException e) {
+//				return;
+//			}
+//			double time = getDispatcher().getCurrentTime();
+//			avtoHisto.add(time-current_time);
+//			getDispatcher().printToProtocol(getNameForProtocol()+" поїхав розвантажуватись");
+//			queueToRoad.addLast(this);
+//			holdForTime(rnd.next());
+//			queueToRoad.remove(this);
+//			getDispatcher().printToProtocol(getNameForProtocol()+" розвантажується");
+//			load_container=0;
+		}
 	}
-
+	public void addContainer(){
+		load_container++;
+		getDispatcher().printToProtocol(getNameForProtocol()+" у кузові стало "+load_container);
+	}
+	public boolean isFull() {
+		return load_container>=cnt_container;
+	}
+	public void setFinishTime(double arg0) {
+		finishTime = arg0;
+	}
 }
