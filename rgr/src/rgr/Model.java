@@ -70,6 +70,13 @@ public class Model {
 	/**
 	 * Launch the application.
 	 */
+	public Area area;
+	public Avto avto;
+	public Barge barge;
+	public BargeGenerator barGen;
+	public Conteiner conteiner;
+	public Workers workers; 
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
