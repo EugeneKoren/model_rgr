@@ -73,9 +73,7 @@ public class UserInterface {
 	private JTextField textField;
 	private ChooseData chooseData;
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
