@@ -63,17 +63,14 @@ public class Barge extends process.Actor {
 	private Histo histoService;
 	
 	public Barge(Model model) {
+		this.setHistoForActorWaitingTime(model.getHistoServirsBarg());
 		this.queue = model.getQueueToRozvantag();
-		this.histoQueue = model.gethistoBargeInQue();
+		//this.histoQueue = model.gethistoBargeInQue();
 		this.histoService = model.getHistoServirsBarg();
+		this.setHistoForActorWaitingTime(model.getHistoServirsBarg());
 	}
 
 	
-	
-	public static void main(String[] args) {
-		
-
-	}
 	
 	
 	@Override
@@ -81,9 +78,9 @@ public class Barge extends process.Actor {
 		createTime =dispatcher.getCurrentTime();
 		nameForProtocol = "barge "+createTime;
 		queue.add(this);
-		waitForCondition(()->!queue.contains(this), "мають забрати на обслуговування");
+		//waitForCondition(()->!queue.contains(this), "мають забрати на обслуговування");
 		//histoQueue.add(dispatcher.getCurrentTime() - createTime);
-		waitForCondition(()->serviceDone, "мають завершити обслуговування");
+		//waitForCondition(()->serviceDone, "мають завершити обслуговування");
 		//histoService.add(dispatcher.getCurrentTime()-createTime);
 		
 	}

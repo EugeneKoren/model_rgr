@@ -1,5 +1,8 @@
 package rgr;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import process.Dispatcher;
 import process.MultiActor;
 import process.QueueForTransactions;
@@ -7,8 +10,15 @@ import process.Store;
 import qusystem.GetPutDevice;
 import stat.DiscretHisto;
 import stat.Histo;
+import stat.IHisto;
+import widgets.stat.StatisticsManager;
+import widgets.trans.ITransMonitoring;
+import widgets.trans.ITransProcesable;
+import widgets.experiments.IExperimentable;
+import widgets.stat.IStatisticsable;
 
-public class Model {
+public class Model implements IExperimentable, ITransProcesable,
+IStatisticsable{
 	private Avto avto;
 	private Workers workers;
 	private QueueForTransactions<Barge> queueToRozvantag;
@@ -26,12 +36,18 @@ public class Model {
 		}
 		return histoForQueueToZavantagAvto;
 	}
-	private Histo histoBargeInQue;//длявремени в черзи 
-	public Histo gethistoBargeInQue() {
-		return histoBargeInQue;
+	private Histo histowoketime;//для времени jожидание вокера  
+	public Histo gethistowoketime() {
+		if(histowoketime==null) {
+			histowoketime = new Histo();
+		}
+		return histowoketime;
 	}
 	private Histo histoServirsBarg;//для розвантаження 
 	public Histo getHistoServirsBarg() {
+		if(histoServirsBarg==null) {
+			histoServirsBarg = new Histo();
+		}
 		return histoServirsBarg;
 	}
 	private Histo histoWorker;//для часу чекання  
@@ -44,10 +60,8 @@ public class Model {
 	private Dispatcher dispatcher;
 	private UserInterface interfase;
 	private BargeGenerator bargegenerator;
-	
-	public static void main(String[] args) {
-		System.out.println("sad");
-	}
+	private StatisticsManager statisticsManager;
+
 	public QueueForTransactions<Avto> getQueueToZavantagAvto() {
 		if(queueToZavantagAvto==null) {
 			queueToZavantagAvto= new  QueueForTransactions<>("queueToZavantagAvto",dispatcher,getHistoForQueueToZavantagAvto());
@@ -61,8 +75,10 @@ public class Model {
 			System.out.println("Подальша робота неможлива");
 			System.exit(0);
 		}
+		statisticsManager=g.getStatisticsManager();
 		dispatcher = d;
 		interfase = g;
+		
 		//Передаємо акторів до стартового списку диспетчераы
 		componentsToStartList();
 	}
@@ -81,7 +97,7 @@ public class Model {
 	public Workers getWorkers() {
 		if(workers==null) {
 			workers=new Workers("workers",interfase,this);
-			workers.setHistoForActorWaitingTime(getHistoWorker());
+			workers.setHistoForActorWaitingTime(gethistowoketime());
 		}
 		return workers;
 	}
@@ -116,6 +132,7 @@ public class Model {
 		getAreagruz().setPainter(interfase.getDiagramPlo().getPainter());
 		getQueueToRozvantag().setPainter(interfase.getDiagramBarg().getPainter());
 		getQueueToZavantagAvto().setPainter(interfase.getDiagramAvto().getPainter());
+		
 		if(interfase.getChckbxNewCheckBox().isSelected()) {
 			dispatcher.setProtocolFileName("Console");
 		}else {
@@ -126,6 +143,7 @@ public class Model {
 		if(queueToRozvantag==null) {
 			queueToRozvantag = new QueueForTransactions<>("queueToRozvantag",dispatcher,getHistoForQueueToRozvantag());
 		}
+		
 		return queueToRozvantag;
 	}
 	public DiscretHisto getHistoForQueueToRozvantag() {
@@ -138,13 +156,16 @@ public class Model {
 		return histoWorker;
 	}
 	
-	public QueueForTransactions<Avto> getQueueToRoad() {
-		if(queueToRoad==null) {
-			queueToRoad = new QueueForTransactions<>("queueToRoad",dispatcher,getHistoForQueueToRozvantag());
-		}
-		return queueToRoad;
-	}
+//	public QueueForTransactions<Avto> getQueueToRoad() {
+//		if(queueToRoad==null) {
+//			queueToRoad = new QueueForTransactions<>("queueToRoad",dispatcher,getHistoForQueueToRozvantag());
+//		}
+//		return queueToRoad;
+//	}
 	public Histo getHistoAvto() {
+		if(histoAvto==null) {
+			histoAvto=new Histo();
+		}
 		return histoAvto;
 	}
 	public Store getAreagruz() {
@@ -153,10 +174,53 @@ public class Model {
 		}
 		return areagruz;
 	}
+	
+	
 	public Histo getHistoarea() {
 		if(histoarea==null) {
 			histoarea= new Histo();
 		}
 		return histoarea;
+	}
+	////////////////////////
+	public void initForStatistics() {
+		
+	}
+	
+	public Map<String, IHisto> getStatistics() {
+		Map<String, IHisto> map = new HashMap<>();
+		map.put("Гістограма для сховища", getHistoarea());
+		map.put("Гістограма для довжини черги барж на розвантаження", getHistoForQueueToRozvantag());
+		map.put("Гістограма для довжини черги авто на завантаження", getHistoForQueueToZavantagAvto());
+		map.put("Гістограма для часу чекання авто", getHistoAvto());
+		map.put("Гістограма для часу чекання брыгад", gethistowoketime());
+		//	map.put("2", getHistoForQueueToZavantagAvto());
+
+		return map;
+	}
+
+	@Override
+	public void initForTrans(double finishTime) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Map<String, ITransMonitoring> getMonitoringObjects() {
+		Map<String, ITransMonitoring> transMap = new HashMap<>();
+//		transMap.put("Купа грунту", (ITransMonitoring) getHistoarea());
+		return null;
+	}
+
+	@Override
+	public void initForExperiment(double factor) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Map<String, Double> getResultOfExperiment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

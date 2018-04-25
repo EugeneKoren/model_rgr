@@ -6,6 +6,7 @@ import process.DispatcherFinishException;
 import process.QueueForTransactions;
 import process.Store;
 import rnd.Randomable;
+import stat.Histo;
 
 public class Workers extends process.Actor {
 	
@@ -19,6 +20,7 @@ public class Workers extends process.Actor {
 	private QueueForTransactions<Avto> queueToZavantagAvto;
 	private Store areagruz;
 	private int maxsize;
+	private Histo histoavto;
 	
 	public Workers(String name,UserInterface gui,Model model) {
 		this.gui=gui;
@@ -29,6 +31,7 @@ public class Workers extends process.Actor {
 		queueToZavantagAvto = model.getQueueToZavantagAvto();
 		areagruz = model.getAreagruz();
 		maxsize= gui.getChooseSizePlo().getInt();
+		
 	}
 	
 	
@@ -37,6 +40,7 @@ public class Workers extends process.Actor {
 				BooleanSupplier queueSize = () -> queue.size() > 0;
 				BooleanSupplier qu = ()->((queueToZavantagAvto.size()>0) || (areagruz.getSize()<maxsize));
 				// цикл виконання правил дії
+				
 				while (getDispatcher().getCurrentTime() <= finishTime) {
 					// Перевірка наявності транзакції та чекання на її появу
 					waitForCondition(queueSize, "у черзі має з'явиться транзакція");

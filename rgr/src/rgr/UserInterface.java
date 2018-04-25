@@ -315,6 +315,15 @@ public class UserInterface {
 		Start.setLayout(new BoxLayout(Start, BoxLayout.X_AXIS));
 		
 		statisticsManager = new StatisticsManager();
+		   statisticsManager = new StatisticsManager();
+		   IModelFactory factory = (d) -> new Model(d, this);
+		   statisticsManager.setFactory(factory);
+		statisticsManager.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+		});
 		Start.add(statisticsManager);
 		
 		panel_1 = new JPanel();
@@ -488,7 +497,8 @@ public class UserInterface {
 				model.initForTest();
 				//Запускаємо модель
 				dispatcher.start();
-
+				
+				
 		
 	}
 
@@ -496,4 +506,13 @@ public class UserInterface {
 	public JCheckBox getChckbxNewCheckBox() {
 		return chckbxNewCheckBox;
 	}
+	 public StatisticsManager getStatisticsManager() {
+		  if (statisticsManager == null) {
+		   statisticsManager = new StatisticsManager();
+		   IModelFactory factory = (d) -> new Model(d, this);
+		   statisticsManager.setFactory(factory);
+		  }
+		  return statisticsManager;
+		 }
+	 
 }

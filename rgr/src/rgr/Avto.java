@@ -27,11 +27,12 @@ public class Avto extends Actor {
 		rnd = gui.getChooseRandomChasPerebAvtoInRoad();
 		cnt_container = gui.getChooseMistcistAvto().getInt();
 		queueToZavantagAvto = model.getQueueToZavantagAvto();
-		queueToRoad = model.getQueueToRoad();
+		//queueToRoad = model.getQueueToRoad();
 		load_container = 0;
 		avtoHisto = model.getHistoAvto();
 		areagruz = model.getAreagruz();
 		maxsize= gui.getChooseSizePlo().getInt();
+		//setHistoForActorWaitingTime(model.getQueueToZavantagAvto());
 	}
 
 
