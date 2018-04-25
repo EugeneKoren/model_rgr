@@ -35,7 +35,7 @@ public class Workers extends process.Actor {
 	public void rule() throws DispatcherFinishException {
 		// Створюємо умову, виконання якої буде чекати актор
 				BooleanSupplier queueSize = () -> queue.size() > 0;
-				BooleanSupplier qu = ()->((queueToZavantagAvto.size()>0) || (areagruz.getSize()<=maxsize));
+				BooleanSupplier qu = ()->((queueToZavantagAvto.size()>0) || (areagruz.getSize()<maxsize));
 				// цикл виконання правил дії
 				while (getDispatcher().getCurrentTime() <= finishTime) {
 					// Перевірка наявності транзакції та чекання на її появу
@@ -45,18 +45,25 @@ public class Workers extends process.Actor {
 					// Імітація обробки транзакції
 					//holdForTime(rnd.next()*gui.getChooseKilkistKonteiner().getInt());
 					for(int i=0;i != gui.getChooseKilkistKonteiner().getInt();i++){
-						if( queueToZavantagAvto.size() !=0) {
-						Avto avto = queueToZavantagAvto.removeFirst();
-						avto.addContainer();
+						
 						holdForTime(rnd.next());
-						queueToZavantagAvto.add(avto);	
-						//areagruz.add(1);
+						System.out.println(queueToZavantagAvto.size());
+						if( queueToZavantagAvto.size() >0) {							
+						Avto avto = queueToZavantagAvto.removeFirst();
+						System.out.println("  "+queueToZavantagAvto.size());
+						avto.addContainer();
+						if(!avto.isFull()) {
+							queueToZavantagAvto.add(avto);
 						}
-						if(queueToZavantagAvto.size() == 1 && areagruz.getSize()<maxsize) {
-							holdForTime(rnd.next());
+						//	
+						//areagruz.add(1);
+						}else {
+						if(queueToZavantagAvto.size() == 0 && areagruz.getSize()<maxsize) {					
 							areagruz.add(1);
 							System.out.println("sd");	
 						}else {
+							waitForCondition(qu  , "у черзі має з'явиться транзакція");
+						}
 							
 						}
 						

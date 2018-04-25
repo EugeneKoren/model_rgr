@@ -154,6 +154,7 @@ public class UserInterface {
 		panel_2.add(chooseRandomChasZavAvto, gbc_chooseRandomChasZavAvto);
 		
 		chooseKilkistKonteiner = new ChooseData();
+		chooseKilkistKonteiner.setInt(5);
 		chooseKilkistKonteiner.setTitle("\u041A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u043A\u043E\u043D\u0442\u0435\u0439\u043D\u0435\u0440\u0456\u0432 \u0432 \u0431\u0430\u0440\u0436\u0456");
 		GridBagConstraints gbc_chooseKilkistKonteiner = new GridBagConstraints();
 		gbc_chooseKilkistKonteiner.anchor = GridBagConstraints.NORTH;
@@ -164,6 +165,7 @@ public class UserInterface {
 		panel_2.add(chooseKilkistKonteiner, gbc_chooseKilkistKonteiner);
 		
 		chooseKilkistBrig = new ChooseData();
+		chooseKilkistBrig.setInt(1);
 		chooseKilkistBrig.setTitle("\u041A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0431\u0440\u0438\u043D\u0430\u0434");
 		GridBagConstraints gbc_chooseKilkistBrig = new GridBagConstraints();
 		gbc_chooseKilkistBrig.anchor = GridBagConstraints.NORTH;
@@ -174,6 +176,7 @@ public class UserInterface {
 		panel_2.add(chooseKilkistBrig, gbc_chooseKilkistBrig);
 		
 		chooseSizePlo = new ChooseData();
+		chooseSizePlo.setInt(100);
 		chooseSizePlo.setTitle("\u0420\u043E\u0437\u043C\u0456\u0440 \u043F\u043B\u043E\u0449\u0430\u0434\u043A\u0438");
 		GridBagConstraints gbc_chooseSizePlo = new GridBagConstraints();
 		gbc_chooseSizePlo.insets = new Insets(0, 0, 5, 0);
@@ -184,6 +187,7 @@ public class UserInterface {
 		panel_2.add(chooseSizePlo, gbc_chooseSizePlo);
 		
 		chooseKilkistAvto = new ChooseData();
+		chooseKilkistAvto.setInt(3);
 		chooseKilkistAvto.setTitle("\u041A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0430\u0432\u0442\u043E");
 		GridBagConstraints gbc_chooseKilkistAvto = new GridBagConstraints();
 		gbc_chooseKilkistAvto.insets = new Insets(0, 0, 5, 0);
@@ -194,6 +198,7 @@ public class UserInterface {
 		panel_2.add(chooseKilkistAvto, gbc_chooseKilkistAvto);
 		
 		chooseMistcistAvto = new ChooseData();
+		chooseMistcistAvto.setInt(1);
 		chooseMistcistAvto.setTitle("\u041C\u0456\u0441\u0442\u043A\u0456\u0441\u0442\u044C \u0430\u0432\u0442\u043E");
 		GridBagConstraints gbc_chooseMistcistAvto = new GridBagConstraints();
 		gbc_chooseMistcistAvto.anchor = GridBagConstraints.NORTH;
@@ -204,6 +209,7 @@ public class UserInterface {
 		panel_2.add(chooseMistcistAvto, gbc_chooseMistcistAvto);
 		
 		chooseChasMod = new ChooseData();
+		chooseChasMod.setInt(222);
 		chooseChasMod.setTitle("\u0427\u0430\u0441 \u043C\u043E\u0434\u0435\u043B\u044E\u0432\u0430\u043D\u043D\u044F");
 		GridBagConstraints gbc_chooseChasMod = new GridBagConstraints();
 		gbc_chooseChasMod.insets = new Insets(0, 0, 5, 0);
@@ -453,6 +459,14 @@ public class UserInterface {
 	private void StartTest() {
 				getDiagramBarg().setHorizontalMaxText(
 						getChooseChasMod().getText());
+				getDiagramAvto().setHorizontalMaxText(
+						getChooseChasMod().getText());
+				getDiagramPlo().setHorizontalMaxText(
+						getChooseChasMod().getText());
+				getDiagramPlo().setVerticalMaxText(
+						getChooseSizePlo().getText());
+				getDiagramAvto().setVerticalMaxText(
+						getChooseKilkistAvto().getText());
 			// Штучно формуємо подію CaretUpdate,
 			// щоб обновити налаштування діаграми
 			//getChooseDataFinishTime().select(0,0);

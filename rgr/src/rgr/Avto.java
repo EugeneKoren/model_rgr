@@ -55,13 +55,15 @@ public class Avto extends Actor {
 				} catch (DispatcherFinishException e) {
 					return;
 				}
-				queueToZavantagAvto.removeFirst();
-				
+				//queueToZavantagAvto.removeFirst();
+				System.out.println("+++");
 			}
+			if(this.isFull()) {
 			
-			
+			System.out.println("---");
 			holdForTime(rnd.next());
 			load_container=0;
+			}
 			
 //			holdForTime(rnd.next());
 //			queueToRoad.remove(this);
