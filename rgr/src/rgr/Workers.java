@@ -76,7 +76,9 @@ public class Workers extends process.Actor {
 					transaction.setServiceDone(true);
 				}
 			}
-
+	public void setFinishTime(double arg0) {
+		finishTime = arg0;
+	}
 		
 	}
 

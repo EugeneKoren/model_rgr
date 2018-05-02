@@ -201,26 +201,36 @@ IStatisticsable{
 
 	@Override
 	public void initForTrans(double finishTime) {
-		// TODO Auto-generated method stub
+		getWorkers().setFinishTime(finishTime);
+		getAvto().setFinishTime(finishTime);
+		interfase.getChooseChasMod().setDouble(finishTime);
 		
 	}
 
 	@Override
 	public Map<String, ITransMonitoring> getMonitoringObjects() {
 		Map<String, ITransMonitoring> transMap = new HashMap<>();
-//		transMap.put("Купа грунту", (ITransMonitoring) getHistoarea());
+		transMap.put("Купа грунту",getAreagruz());
 		return null;
 	}
 
 	@Override
 	public void initForExperiment(double factor) {
-		// TODO Auto-generated method stub
+		Avtos.setNumberOfClones((int) factor);
 		
 	}
 
 	@Override
 	public Map<String, Double> getResultOfExperiment() {
 		// TODO Auto-generated method stub
-		return null;
+		Map<String, Double> resultMap = new HashMap<>();
+		resultMap.put("Гістограма для сховища", getHistoarea()
+				.getAverage());
+		resultMap.put("Гістограма для довжини черги барж на розвантаження", getHistoForQueueToRozvantag().getAverage());
+		resultMap.put("Гістограма для довжини черги авто на завантаження", getHistoForQueueToZavantagAvto().getAverage());
+		resultMap.put("Гістограма для часу чекання авто", getHistoAvto().getAverage());
+		resultMap.put("Гістограма для часу чекання брыгад", gethistowoketime().getAverage());
+		return resultMap;
+
 	}
 }

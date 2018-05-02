@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import widgets.Diagram;
 import javax.swing.JTextPane;
 
+
 import process.Dispatcher;
 import process.IModelFactory;
 
@@ -33,6 +34,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Color;
+import java.awt.Dimension;
+
+import widgets.experiments.ExperimentManager;
 
 
 public class UserInterface {
@@ -63,15 +67,8 @@ public class UserInterface {
 	private ChooseData chooseMistcistAvto;
 	private ChooseData chooseChasMod;
 	private JPanel panel;
-	private Diagram diagram_3;
-	private RegresAnaliser regresAnaliser;
-	private ChooseData chooseData_6;
-	private JComboBox comboBox;
-	private JButton btnNewButton;
-	private JButton btnNewButton_2;
-	private JCheckBox chckbxNewCheckBox_1;
-	private JTextField textField;
 	private ChooseData chooseData;
+	private ExperimentManager experimentManager;
 
 
 	public static void main(String[] args) {
@@ -144,6 +141,7 @@ public class UserInterface {
 		panel_2.add(chooseRandomChasPerebAvtoInRoad, gbc_chooseRandomChasPerebAvtoInRoad);
 		
 		chooseRandomChasZavAvto = new ChooseRandom();
+		chooseRandomChasZavAvto.setToolTipText("");
 		chooseRandomChasZavAvto.setTitle("\u0427\u0430\u0441 \u043D\u0430 \u0437\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0435\u043D\u043D\u044F \u0430\u0432\u0442\u043E");
 		GridBagConstraints gbc_chooseRandomChasZavAvto = new GridBagConstraints();
 		gbc_chooseRandomChasZavAvto.anchor = GridBagConstraints.NORTH;
@@ -335,86 +333,33 @@ public class UserInterface {
 		panel_3.setLayout(new CardLayout(0, 0));
 		
 		transProcessManager = new TransProcessManager();
+		transProcessManager.setFactory((d) -> new Model(d, this));
 		panel_3.add(transProcessManager, "name_399543524995221");
 		
 		panel = new JPanel();
 		tabbedPane.addTab("Regres", null, panel, null);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 225, 0, 0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_panel.columnWeights = new double[]{1.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		diagram_3 = new Diagram();
-		GridBagConstraints gbc_diagram_3 = new GridBagConstraints();
-		gbc_diagram_3.gridwidth = 2;
-		gbc_diagram_3.insets = new Insets(0, 0, 5, 5);
-		gbc_diagram_3.fill = GridBagConstraints.BOTH;
-		gbc_diagram_3.gridx = 0;
-		gbc_diagram_3.gridy = 0;
-		panel.add(diagram_3, gbc_diagram_3);
-		
-		regresAnaliser = new RegresAnaliser();
-		GridBagConstraints gbc_regresAnaliser = new GridBagConstraints();
-		gbc_regresAnaliser.gridwidth = 3;
-		gbc_regresAnaliser.insets = new Insets(0, 0, 5, 0);
-		gbc_regresAnaliser.fill = GridBagConstraints.BOTH;
-		gbc_regresAnaliser.gridx = 2;
-		gbc_regresAnaliser.gridy = 0;
-		panel.add(regresAnaliser, gbc_regresAnaliser);
-		
-		comboBox = new JComboBox();
-		comboBox.setToolTipText("");
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.gridwidth = 2;
-		gbc_comboBox.gridheight = 2;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 0;
-		gbc_comboBox.gridy = 2;
-		panel.add(comboBox, gbc_comboBox);
-		
-		chooseData_6 = new ChooseData();
-		chooseData_6.setTitle("\u0417\u043D\u0430\u0447\u0435\u043D\u043D\u044F \u0444\u0430\u043A\u0442\u043E\u0440\u0443");
-		chooseData_6.setText("1 2 3 5 6 8 9 10 ");
-		GridBagConstraints gbc_chooseData_6 = new GridBagConstraints();
-		gbc_chooseData_6.gridwidth = 3;
-		gbc_chooseData_6.gridheight = 3;
-		gbc_chooseData_6.insets = new Insets(0, 0, 5, 0);
-		gbc_chooseData_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_chooseData_6.gridx = 2;
-		gbc_chooseData_6.gridy = 1;
-		panel.add(chooseData_6, gbc_chooseData_6);
-		
-		chckbxNewCheckBox_1 = new JCheckBox("Ln");
-		GridBagConstraints gbc_chckbxNewCheckBox_1 = new GridBagConstraints();
-		gbc_chckbxNewCheckBox_1.insets = new Insets(0, 0, 0, 5);
-		gbc_chckbxNewCheckBox_1.gridx = 0;
-		gbc_chckbxNewCheckBox_1.gridy = 4;
-		panel.add(chckbxNewCheckBox_1, gbc_chckbxNewCheckBox_1);
-		
-		btnNewButton_2 = new JButton("\u041F\u0435\u0440\u0435\u0440\u0438\u0441\u043E\u0432\u0430\u0442\u044C");
-		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
-		gbc_btnNewButton_2.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_2.gridx = 1;
-		gbc_btnNewButton_2.gridy = 4;
-		panel.add(btnNewButton_2, gbc_btnNewButton_2);
-		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 0, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 3;
-		gbc_textField.gridy = 4;
-		panel.add(textField, gbc_textField);
-		textField.setColumns(10);
-		
-		btnNewButton = new JButton("New button");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridx = 4;
-		gbc_btnNewButton.gridy = 4;
-		panel.add(btnNewButton, gbc_btnNewButton);
+		experimentManager = new ExperimentManager();
+		GridBagConstraints gbc_experimentManager = new GridBagConstraints();
+		gbc_experimentManager.gridwidth = 5;
+		gbc_experimentManager.gridheight = 6;
+		gbc_experimentManager.insets = new Insets(0, 0, 0, 5);
+		gbc_experimentManager.fill = GridBagConstraints.BOTH;
+		gbc_experimentManager.gridx = 0;
+		gbc_experimentManager.gridy = 0;
+		experimentManager.getComboBox().setPreferredSize(new Dimension(328, 20));
+		experimentManager.getComboBox().setMinimumSize(new Dimension(328, 20));
+		experimentManager.getDiagram().setHorizontalMaxText("15");
+		experimentManager.getDiagram().setVerticalMaxText("500");
+		experimentManager.getChooseDataFactors().setText("1 3 5 7 9 12 14");
+		experimentManager.setFactory((d)-> new Model(d, this));
+		panel.add(experimentManager, gbc_experimentManager);
 	}
 
 	public JPanel getPanel_1() {
@@ -472,10 +417,10 @@ public class UserInterface {
 						getChooseChasMod().getText());
 				getDiagramPlo().setHorizontalMaxText(
 						getChooseChasMod().getText());
-				getDiagramPlo().setVerticalMaxText(
-						getChooseSizePlo().getText());
-				getDiagramAvto().setVerticalMaxText(
-						getChooseKilkistAvto().getText());
+				getDiagramPlo().setVerticalMaxText(String.valueOf((Integer.parseInt(
+						getChooseSizePlo().getText())+5)));
+				getDiagramAvto().setVerticalMaxText( String.valueOf((Integer.parseInt(
+						 getChooseKilkistAvto().getText())+2)));
 			// Штучно формуємо подію CaretUpdate,
 			// щоб обновити налаштування діаграми
 			//getChooseDataFinishTime().select(0,0);
