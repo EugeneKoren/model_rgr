@@ -69,6 +69,7 @@ public class UserInterface {
 	private JPanel panel;
 	private ChooseData chooseData;
 	private ExperimentManager experimentManager;
+	private Diagram diagramTodostavki;
 
 
 	public static void main(String[] args) {
@@ -248,9 +249,9 @@ public class UserInterface {
 		tabbedPane.addTab("Test", null, panl_test, null);
 		GridBagLayout gbl_panl_test = new GridBagLayout();
 		gbl_panl_test.columnWidths = new int[]{166, 0, 0};
-		gbl_panl_test.rowHeights = new int[]{0, 0, 0, 0, 0};
-		gbl_panl_test.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panl_test.rowWeights = new double[]{1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panl_test.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gbl_panl_test.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_panl_test.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		panl_test.setLayout(gbl_panl_test);
 		
 		diagramBarg = new Diagram();
@@ -286,11 +287,22 @@ public class UserInterface {
 		gbc_diagramPlo.gridy = 2;
 		panl_test.add(diagramPlo, gbc_diagramPlo);
 		
+		diagramTodostavki = new Diagram();
+		diagramTodostavki.setPainterColor(Color.RED);
+		diagramTodostavki.setPanelBackground(Color.WHITE);
+		GridBagConstraints gbc_diagramTodostavki = new GridBagConstraints();
+		gbc_diagramTodostavki.gridwidth = 2;
+		gbc_diagramTodostavki.insets = new Insets(0, 0, 5, 5);
+		gbc_diagramTodostavki.fill = GridBagConstraints.BOTH;
+		gbc_diagramTodostavki.gridx = 0;
+		gbc_diagramTodostavki.gridy = 3;
+		panl_test.add(diagramTodostavki, gbc_diagramTodostavki);
+		
 		chckbxNewCheckBox = new JCheckBox("\u041F\u0440\u043E\u0442\u043E\u043A\u043E\u043B \u043D\u0430 \u043A\u043E\u043D\u0441\u043E\u043B\u044C");
 		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
 		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 0, 5);
 		gbc_chckbxNewCheckBox.gridx = 0;
-		gbc_chckbxNewCheckBox.gridy = 3;
+		gbc_chckbxNewCheckBox.gridy = 4;
 		panl_test.add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
 		
 		btnNewButton_1 = new JButton("\u0421\u0442\u0430\u0440\u0442");
@@ -305,7 +317,7 @@ public class UserInterface {
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.anchor = GridBagConstraints.EAST;
 		gbc_btnNewButton_1.gridx = 1;
-		gbc_btnNewButton_1.gridy = 3;
+		gbc_btnNewButton_1.gridy = 4;
 		panl_test.add(btnNewButton_1, gbc_btnNewButton_1);
 		
 		Start = new JPanel();
@@ -429,6 +441,7 @@ public class UserInterface {
 					getDiagramAvto().clear();
 					getDiagramPlo().clear();
 					getDiagramBarg().clear();
+					getDiagramTodostavki().clear();
 				//Створюємо диспетчера
 				Dispatcher dispatcher = new Dispatcher();	
 				//Створюємо модель за допомогою фабрики
@@ -460,4 +473,7 @@ public class UserInterface {
 		  return statisticsManager;
 		 }
 	 
+	public Diagram getDiagramTodostavki() {
+		return diagramTodostavki;
+	}
 }

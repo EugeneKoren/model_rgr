@@ -35,7 +35,9 @@ public class BargeGenerator extends Actor {
 			dispatcher.addStartingActor(transaction);
 		}
 	}
-
+	public void setFinishTime(double arg0) {
+		finishTime = arg0;
+	}
 	}
 	
 	

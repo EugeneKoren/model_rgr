@@ -7,7 +7,7 @@ public class Conteiner extends Actor {
 
 	@Override
 	protected void rule() throws DispatcherFinishException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method s
 		
 	}
 

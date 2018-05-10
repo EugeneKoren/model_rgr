@@ -25,9 +25,13 @@ IStatisticsable{
 	private QueueForTransactions<Avto> queueToZavantagAvto;// черга на завантаження авто 
 
 	private QueueForTransactions<Avto> queueToRoad;// чергаавто в дорозі
+	
 	private Store areagruz;
 	private Histo histoarea;
 
+	private Store areados;
+	private Histo histoareados;
+	
 	private DiscretHisto histoForQueueToRozvantag;
 	private DiscretHisto histoForQueueToZavantagAvto;
 	public DiscretHisto getHistoForQueueToZavantagAvto() {
@@ -129,6 +133,7 @@ IStatisticsable{
 		return Avtos;
 	}
 	public void initForTest() {
+		getAreados().setPainter(interfase.getDiagramTodostavki().getPainter());
 		getAreagruz().setPainter(interfase.getDiagramPlo().getPainter());
 		getQueueToRozvantag().setPainter(interfase.getDiagramBarg().getPainter());
 		getQueueToZavantagAvto().setPainter(interfase.getDiagramAvto().getPainter());
@@ -174,13 +179,25 @@ IStatisticsable{
 		}
 		return areagruz;
 	}
-	
+	public Store getAreados() {
+		if (areados == null) {
+			areados = new Store("Площадка доставки", dispatcher, getHistoareados());
+		}
+		return areados;
+	}
 	
 	public Histo getHistoarea() {
 		if(histoarea==null) {
 			histoarea= new Histo();
 		}
 		return histoarea;
+	}
+	
+	public Histo getHistoareados() {
+		if(histoareados==null) {
+			histoareados= new Histo();
+		}
+		return histoareados;
 	}
 	////////////////////////
 	public void initForStatistics() {
@@ -190,6 +207,7 @@ IStatisticsable{
 	public Map<String, IHisto> getStatistics() {
 		Map<String, IHisto> map = new HashMap<>();
 		map.put("Гістограма для сховища", getHistoarea());
+		map.put("Гістограма для доставлених товарiв", getHistoareados());
 		map.put("Гістограма для довжини черги барж на розвантаження", getHistoForQueueToRozvantag());
 		map.put("Гістограма для довжини черги авто на завантаження", getHistoForQueueToZavantagAvto());
 		map.put("Гістограма для часу чекання авто", getHistoAvto());
@@ -198,33 +216,39 @@ IStatisticsable{
 
 		return map;
 	}
-
+	//////////////
 	@Override
 	public void initForTrans(double finishTime) {
 		getWorkers().setFinishTime(finishTime);
 		getAvto().setFinishTime(finishTime);
+		getBargegenerator().setFinishTime(finishTime);
 		interfase.getChooseChasMod().setDouble(finishTime);
 		
+		
 	}
-
+	
 	@Override
 	public Map<String, ITransMonitoring> getMonitoringObjects() {
 		Map<String, ITransMonitoring> transMap = new HashMap<>();
-		transMap.put("Купа грунту",getAreagruz());
-		return null;
+		transMap.put("Черга авто на завантаження",(ITransMonitoring) getQueueToZavantagAvto());
+		transMap.put("Розмiр площадки",(ITransMonitoring) getAreagruz());
+		transMap.put("Черга барж на розвантаження",(ITransMonitoring) getQueueToRozvantag());
+		return transMap;
 	}
-
+	///////////////////////////
 	@Override
 	public void initForExperiment(double factor) {
 		Avtos.setNumberOfClones((int) factor);
 		
 	}
-
+	
 	@Override
 	public Map<String, Double> getResultOfExperiment() {
 		// TODO Auto-generated method stub
 		Map<String, Double> resultMap = new HashMap<>();
 		resultMap.put("Гістограма для сховища", getHistoarea()
+				.getAverage());
+		resultMap.put("Гістограма для доставлених товарiв", getHistoareados()
 				.getAverage());
 		resultMap.put("Гістограма для довжини черги барж на розвантаження", getHistoForQueueToRozvantag().getAverage());
 		resultMap.put("Гістограма для довжини черги авто на завантаження", getHistoForQueueToZavantagAvto().getAverage());

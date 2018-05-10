@@ -20,6 +20,7 @@ public class Avto extends Actor {
 	private BooleanSupplier isBodyFull;
 	private Histo avtoHisto;
 	private Store areagruz;
+	private Store areados;
 	private int maxsize;
 	
 	public Avto(String string, UserInterface gui, Model model) {
@@ -33,6 +34,7 @@ public class Avto extends Actor {
 		areagruz = model.getAreagruz();
 		maxsize= gui.getChooseSizePlo().getInt();
 		//setHistoForActorWaitingTime(model.getQueueToZavantagAvto());
+		areados = model.getAreados();
 	}
 
 
@@ -60,7 +62,7 @@ public class Avto extends Actor {
 				System.out.println("+++");
 			}
 			if(this.isFull()) {
-			
+			areados.add(1);
 			System.out.println("---");
 			holdForTime(rnd.next());
 			load_container=0;
